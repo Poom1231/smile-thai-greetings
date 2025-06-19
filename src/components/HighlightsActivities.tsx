@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -43,6 +42,15 @@ const HighlightsActivities: React.FC<HighlightsActivitiesProps> = ({ language })
       buttonText: 'UPDATE All HIGHLIGHTS AND ACTIVITIES'
     }
   };
+
+  // Auto-slide functionality
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % highlights.length);
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [highlights.length]);
 
   const goToPrevious = () => {
     setCurrentSlide((prev) => (prev - 1 + highlights.length) % highlights.length);
